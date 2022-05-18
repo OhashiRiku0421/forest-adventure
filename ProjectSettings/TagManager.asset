@@ -51,3 +51,6 @@ TagManager:
   - name: front
     uniqueID: 3982665759
     locked: 0
+  - name: front2
+    uniqueID: 2661251241
+    locked: 0
