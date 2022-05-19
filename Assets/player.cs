@@ -51,7 +51,6 @@ public class player : MonoBehaviour
     void Update()
     {
         Jump();
-        // rb.velocity = new Vector2(Input.GetAxis("Horizontal") * jumpSpeed, rb.velocity.y);
     }
     void Jump()
     {
