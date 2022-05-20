@@ -5,21 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class sceneScript : MonoBehaviour
 {
-   // Start is called before the first frame update
    void Start()
     {
         Invoke("ChangeScene", 1f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
         if (collision.CompareTag("Player")) 
         {
             SceneManager.LoadScene("Stage2");

@@ -6,23 +6,12 @@ public class CheckGround : MonoBehaviour
 {
     [SerializeField] player _player;
     // Start is called before the first frame update
-  public  bool isGround = false;
-    void Start()
-    {
-        
-    }
-
+  public  bool isGround = false;  
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool GetCheckGround()
     {
         return isGround;
     }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Ground")
@@ -33,10 +22,10 @@ public class CheckGround : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        //ƒ^ƒO‚Å’…’n”»’è
         if(collision.tag == "Ground")
         {
             isGround = false;
-
         }
     }
 }

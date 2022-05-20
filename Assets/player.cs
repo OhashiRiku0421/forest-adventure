@@ -10,7 +10,7 @@ public class player : MonoBehaviour
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private CheckGround checkground;
-
+    private bool isAttack;
     bool ismovenow = false;
 
     // Start is called before the first frame update
@@ -24,32 +24,43 @@ public class player : MonoBehaviour
     void FixedUpdate()
     {
         float horizontalkey = Input.GetAxisRaw("Horizontal");
-        //右入力で右向きに動く
-        if(horizontalkey > 0)
+        //attackがfalseの時以下が動く
+        if (!isAttack)
         {
-           ismovenow = true;
-            transform.rotation = new Quaternion(0, 0, 0, 0);
-            rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
-            anim.SetBool("isRun", true);
-        }
-        //左入力で左向きに動く
-        else if(horizontalkey < 0)
-        {
-            ismovenow = true;
-            transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
-            rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
-            anim.SetBool("isRun", true);
-        }
-        //ボタンを離すと止まる
-        else if (ismovenow)
-        {
-            ismovenow = false;
-            rb.velocity = Vector2.zero;
-            anim.SetBool("isRun", false);
+            //右入力で右向きに動く
+            if (horizontalkey > 0)
+            {
+                ismovenow = true;
+                transform.rotation = new Quaternion(0, 0, 0, 0);
+                rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
+                anim.SetBool("isRun", true);
+            }
+            //左入力で左向きに動く
+            else if (horizontalkey < 0)
+            {
+                ismovenow = true;
+                transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
+                rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
+                anim.SetBool("isRun", true);
+            }
+            //ボタンを離すと止まる
+            else if (ismovenow)
+            {
+                ismovenow = false;
+                rb.velocity = Vector2.zero;
+                anim.SetBool("isRun", false);
+            }
         }
     }
     void Update()
     {
+        //左クリック入力でattackする
+        if (Input.GetButtonDown("Fire1"))
+        {
+            anim.SetBool("attack", true);
+            isAttack = true;
+        }
+
         Jump();
     }
     void Jump()
@@ -68,5 +79,10 @@ public class player : MonoBehaviour
     public void Land()
     {
         anim.SetBool("isJump", false);
+    }
+    private void IsAttackFalse() 
+    {
+        //アニメーションイベントで呼び出す
+        isAttack = false;
     }
 }
