@@ -13,7 +13,7 @@ public class sceneScript : MonoBehaviour
     {
         if (collision.CompareTag("Player")) 
         {
-            SceneManager.LoadScene("Stage2");
+            SceneManager.LoadScene("Stage2");//プレイヤーと接触したときスクリーン２に移動する
         }
     }
 }

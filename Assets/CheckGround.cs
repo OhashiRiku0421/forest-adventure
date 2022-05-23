@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckGround : MonoBehaviour
 {
-    [SerializeField] player _player;
+    [SerializeField] PlayerScript _player;
     // Start is called before the first frame update
   public  bool isGround = false;  
     // Update is called once per frame

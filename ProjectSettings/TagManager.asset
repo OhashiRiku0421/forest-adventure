@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Goal
+  - Enemy
+  - stick
   layers:
   - Default
   - TransparentFX
@@ -57,4 +59,7 @@ TagManager:
     locked: 0
   - name: front2
     uniqueID: 2661251241
+    locked: 0
+  - name: front3
+    uniqueID: 3296367587
     locked: 0
