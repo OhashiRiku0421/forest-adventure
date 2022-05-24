@@ -67,7 +67,6 @@ public class PlayerScript : MonoBehaviour
             {
                 anim.SetBool("attack", true);
                 isAttack = true;
-
                 time = 0;//時間リセット
             }
         }
@@ -95,5 +94,4 @@ public class PlayerScript : MonoBehaviour
         //アニメーションイベントで呼び出す
         isAttack = false;
     }
-
 }
