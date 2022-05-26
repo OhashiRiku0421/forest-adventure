@@ -5,33 +5,39 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField] private float horizontalSpeed;
-    [SerializeField] private  Rigidbody2D rb;
-    [SerializeField] private Animator anim;
     [SerializeField] private int jumpForce;
     [SerializeField] private int jumpSpeed;
     [SerializeField] private CheckGround checkground;
-    public bool isAttack;
+    [SerializeField] private CircleCollider2D stick;
+    [SerializeField] private BoxCollider2D thunder;
+    private Animator anim;
+    private  Rigidbody2D rb;
     bool ismovenow = false;
     private float interval;
+    private float interval2;
     private float time = 0f;//経過時間
-  
+    private float time2 = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        interval = 0.5f;//時間間隔
+        interval = 0.7f;//時間間隔
+        interval2 = 2f;
 
         //this.gameObject.SetActive(false);
-       // anim.enabled = false;
+        // anim.enabled = false;
     }
     // Update is called once per frame
     void FixedUpdate()
-    {
-        float horizontalkey = Input.GetAxisRaw("Horizontal");
+    {  
         //attackがfalseの時以下が動く
-        if (!isAttack)
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
         {
+            //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"));
+
+             float horizontalkey = Input.GetAxisRaw("Horizontal");
             //右入力で右向きに動く
             if (horizontalkey > 0)
             {
@@ -65,12 +71,12 @@ public class PlayerScript : MonoBehaviour
             //左クリック入力でattackする
             if (Input.GetButtonDown("Fire1"))
             {
-                anim.SetBool("attack", true);
-                isAttack = true;
+                anim.SetTrigger("attack");
                 time = 0;//時間リセット
             }
         }
         Jump();
+        IsLookUp();
     }
     void Jump()
     {
@@ -85,13 +91,37 @@ public class PlayerScript : MonoBehaviour
             }
         } 
     }
+    public void IsLookUp()
+    {
+        time2 += Time.deltaTime;
+        if (time2 > interval2)
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                anim.SetTrigger("isLookUp");
+                time2 = 0;
+            }
+        }
+    }
     public void Land()
     {
         anim.SetBool("isJump", false);
     }
-    private void IsAttackFalse() 
+    private void IsAttackFalse()//名前変更
     {
         //アニメーションイベントで呼び出す
-        isAttack = false;
+        stick.enabled = false;
+    }
+    private void ColiderSet()
+    {
+        stick.enabled = true;
+    }
+    private void IsThunderFalse()
+    {
+        thunder.enabled = false;
+    }
+    private void ColiderSet2()
+    {
+        thunder.enabled = true;
     }
 }

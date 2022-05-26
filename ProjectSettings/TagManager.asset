@@ -8,6 +8,7 @@ TagManager:
   - Goal
   - Enemy
   - stick
+  - thunder
   layers:
   - Default
   - TransparentFX
