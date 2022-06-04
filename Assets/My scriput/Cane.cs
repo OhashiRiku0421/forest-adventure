@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cane : MonoBehaviour
 {
-    [SerializeField] private EnemyScript enemyscript;
+    [SerializeField]  EnemyScript enemyscript;
     public float attackpower = 1;//UŒ‚—Íİ’è
 
     // Start is called before the first frame update

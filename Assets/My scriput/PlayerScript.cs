@@ -4,63 +4,83 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] private float horizontalSpeed;
-    [SerializeField] private int jumpForce;
-    [SerializeField] private int jumpSpeed;
-    [SerializeField] private CheckGround checkground;
-    [SerializeField] private CircleCollider2D stick;
-    [SerializeField] private BoxCollider2D thunder;
-    private Animator anim;
-    private  Rigidbody2D rb;
+    [SerializeField] float horizontalSpeed;
+    [SerializeField] int jumpForce;
+    [SerializeField] int jumpSpeed;
+    [SerializeField] CheckGround checkground;
+    [SerializeField] CircleCollider2D stick;
+    [SerializeField] BoxCollider2D thunder;
+    [SerializeField] BoxCollider2D counter;
+    [SerializeField] float interval;
+    [SerializeField] float interval2;
+    [SerializeField] float interval3;
+    [SerializeField] float counterCollider;
+    [SerializeField] Animator anime;
+    [SerializeField] Animator anime2;
+    [SerializeField] float hp = 3f;
+    [SerializeField] RocketScript rocketscript;
+    [SerializeField] float godTime;
+    [SerializeField] float hitTime = 0.5f;
+    CapsuleCollider2D cc;
+    float damage = 1;
+    bool muteki = false;
+    bool hit = false;
+    public Animator anim;
+    Rigidbody2D rb;
     bool ismovenow = false;
-    private float interval;
-    private float interval2;
-    private float time = 0f;//経過時間
-    private float time2 = 0f;
-
+    float timer = 0f;
+    float time = 0f;//経過時間
+    float time2 = 0f;
+    float time3 = 0f;
+    float time4 = 0f;
+    float hitTimer = 0f;
     // Start is called before the first frame update
     void Start()
     {
+        cc = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        interval = 0.7f;//時間間隔
-        interval2 = 2f;
-
         //this.gameObject.SetActive(false);
         // anim.enabled = false;
     }
-    // Update is called once per frame
     void FixedUpdate()
-    {  
+    {
         //attackがfalseの時以下が動く
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-            //Debug.Log(anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"));
-
-             float horizontalkey = Input.GetAxisRaw("Horizontal");
-            //右入力で右向きに動く
-            if (horizontalkey > 0)
+         if(!anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
+         {
+            if(!anim.GetCurrentAnimatorStateInfo(0).IsName("counter") && !anim.GetCurrentAnimatorStateInfo(0).IsName("counterattack"))
             {
-                ismovenow = true;
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
-                anim.SetBool("isRun", true);
+                if(!anime.GetCurrentAnimatorStateInfo(0).IsName("Wind") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+                {
+                    float horizontalkey = Input.GetAxisRaw("Horizontal");
+                    //右入力で右向きに動く
+                    if (horizontalkey > 0)
+                    {
+                        ismovenow = true;
+                        transform.rotation = new Quaternion(0, 0, 0, 0);
+                        rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
+                        anim.SetBool("isRun", true);
+                    }
+                    //左入力で左向きに動く
+                    else if (horizontalkey < 0)
+                    {
+                        ismovenow = true;
+                        transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
+                        rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
+                        anim.SetBool("isRun", true);
+                    }
+                    //ボタンを離すと止まる
+                    else if (ismovenow)
+                    {
+                        ismovenow = false;
+                        rb.velocity = Vector2.zero;
+                        anim.SetBool("isRun", false);
+                    }
+                } 
             }
-            //左入力で左向きに動く
-            else if (horizontalkey < 0)
-            {
-                ismovenow = true;
-                transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
-                rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
-                anim.SetBool("isRun", true);
-            }
-            //ボタンを離すと止まる
-            else if (ismovenow)
-            {
-                ismovenow = false;
-                rb.velocity = Vector2.zero;
-                anim.SetBool("isRun", false);
-            }
+         }
         }
     }
     void Update()
@@ -74,22 +94,45 @@ public class PlayerScript : MonoBehaviour
                 anim.SetTrigger("attack");
                 time = 0;//時間リセット
             }
+            if(muteki == true)
+            {
+                time4 += Time.deltaTime;
+                cc.enabled = false;
+                if(time4 > godTime)
+                {
+                    muteki = false;
+                    cc.enabled = true;
+                    time4 = 0;
+                }
+            }
+        }
+        if (hit)
+        {
+            hitTimer += Time.deltaTime;
+            if (hitTimer >= hitTime)
+            {
+                hitTimer = 0;
+                hit = false;
+            }
         }
         Jump();
         IsLookUp();
+        IsCounter();
     }
     void Jump()
     {
-        bool jumpKey = Input.GetButtonDown("Jump");
-       
-        if (jumpKey)
+        if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
         {
-            if (checkground.GetCheckGround())
+            bool jumpKey = Input.GetButtonDown("Jump");
+            if (jumpKey)
             {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //ジャンプの計算
-                anim.SetBool("isJump", true);
+                if (checkground.GetCheckGround())
+                {
+                    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //ジャンプの計算
+                    anim.SetBool("isJump", true);
+                }
             }
-        } 
+        }
     }
     public void IsLookUp()
     {
@@ -103,10 +146,52 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+    public void IsCounter()
+    {
+        time3 += Time.deltaTime;
+        if (time3 > interval3)
+        {
+            if (Input.GetButtonDown("Fire3"))
+            {
+                counter.enabled = true;
+                anim.SetTrigger("iscounter");
+                time3 = 0;
+            }
+        }
+        if (counter.enabled == true)
+        {
+            timer += Time.deltaTime;
+            if (timer > counterCollider)
+            {
+                counter.enabled = false;
+                timer = 0;
+            }
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (hit == false)
+        {
+            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "enemy")
+            {
+                //Debug.Log("aaaaaa");
+                hit = true;
+                Debug.Log(rocketscript.rocketPower);
+                RocketScript rocket = collision.gameObject.GetComponent<RocketScript>();
+                if (rocket != null)
+                {
+                    hp -= rocket.rocketPower;
+                }
+                muteki = true;
+                anim.SetTrigger("ishurt");
+            }
+        }
+    }
     public void Land()
     {
         anim.SetBool("isJump", false);
     }
+
     private void IsAttackFalse()//名前変更
     {
         //アニメーションイベントで呼び出す

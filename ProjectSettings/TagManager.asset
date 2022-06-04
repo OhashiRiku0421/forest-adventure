@@ -9,6 +9,10 @@ TagManager:
   - Enemy
   - stick
   - thunder
+  - wind
+  - enn
+  - enemy
+  - counter
   layers:
   - Default
   - TransparentFX
@@ -63,4 +67,7 @@ TagManager:
     locked: 0
   - name: front3
     uniqueID: 3296367587
+    locked: 0
+  - name: front4
+    uniqueID: 859586497
     locked: 0
