@@ -13,6 +13,8 @@ TagManager:
   - enn
   - enemy
   - counter
+  - playbutton
+  - bossAttack
   layers:
   - Default
   - TransparentFX

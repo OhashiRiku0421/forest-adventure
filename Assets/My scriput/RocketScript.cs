@@ -9,8 +9,8 @@ public class RocketScript : MonoBehaviour
     [SerializeField] Animator enemyAnime;
     SpriteRenderer sr;
     BoxCollider2D box2d;
-    public float rocketPower = 3;
-    private bool _testBool = false;
+    public int rocketPower = 3;
+    bool _testBool = false;
     float timar = 0f;
     Animator anime;
     // Start is called before the first frame update
@@ -54,9 +54,6 @@ public class RocketScript : MonoBehaviour
 
         }
     }
-    
-       
-    
     private void SpriteActive() 
     {
         sr.enabled = true;

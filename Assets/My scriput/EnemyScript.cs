@@ -10,8 +10,10 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] WindScript windScript;
     [SerializeField] GameObject player;
     [SerializeField] float enemySpeed;
-    [SerializeField] int enemySpeed2;
     [SerializeField] BoxCollider2D b2;
+    [SerializeField] Animator windAnime;
+    public int enemyPower;
+    float enemyCount = 0f;
     Rigidbody2D rb2d;
      PlayerScript playerscript;
     Animator enemyAnime;
@@ -43,7 +45,6 @@ public class EnemyScript : MonoBehaviour
                 transform.rotation = new Quaternion(0, 0, 0, 0);
                 enemyAnime.SetBool("isRun", true);
             }
-
             if (canEnn == true)
             {
                 enemySpeed = 1.5f;
@@ -62,6 +63,7 @@ public class EnemyScript : MonoBehaviour
             Debug.Log("hit1");//hitÇÃÉçÉOÇèoÇ∑
             hp -= collision.gameObject.GetComponent<Cane>().attackpower;//CaneÇ©ÇÁéQè∆
             enemyAnime.SetTrigger("ishit");
+            rb2d.AddForce(transform.right * 2000);
         }
         
         if(collision.gameObject.tag == "thunder")
@@ -69,12 +71,15 @@ public class EnemyScript : MonoBehaviour
            Debug.Log("hit2");
            hp -= collision.gameObject.GetComponent<ThunderScript>().magicpower;
             enemyAnime.SetTrigger("ishit");
+            rb2d.AddForce(transform.right * 3000);
         }
-        if (collision.gameObject.tag == "wind")
+        if (collision.gameObject.tag == "wind" && enemyCount < 1)
         {
+            enemyCount++;
             Debug.Log("hit3");
             hp -= collision.gameObject.GetComponent<WindScript>().windPower;
             enemyAnime.SetTrigger("ishit");
+            rb2d.AddForce(transform.right * 3500);
         }
         if (hp <= 0)
         {
@@ -95,16 +100,11 @@ public class EnemyScript : MonoBehaviour
             canEnn = false;
         }
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "wind")
-    //    {
-    //        Debug.Log("hit3");
-    //        hp -= collision.gameObject.GetComponent<WindScript>().windPower;
-    //        enemyAnime.SetTrigger("ishit");
-    //    }
-    //}
     void Update()
     {
+        if(windAnime.GetCurrentAnimatorStateInfo(0).IsName("Wind") == false)
+        {
+            enemyCount = 0;
+        }
     }
 }

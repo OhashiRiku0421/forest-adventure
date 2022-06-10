@@ -5,12 +5,14 @@ using UnityEngine;
 public class WindScript : MonoBehaviour
 {
     [SerializeField] Animator anime;
+    SpriteRenderer sR;
     Animator windAnim;
     int windCount = 0;
     public float windPower = 3;
     // Start is called before the first frame update
     void Start()
     {
+        sR = GetComponent<SpriteRenderer>();
         windAnim = GetComponent<Animator>();
     }
 
@@ -27,5 +29,15 @@ public class WindScript : MonoBehaviour
             windCount = 0;
         }
     }
-    
+    //void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.tag == "Enemy")
+    //    {
+    //        sR.enabled = false;
+    //    }
+    //}
+    void IsSpriteTrue()
+    {
+        sR.enabled = true;
+    }
 }

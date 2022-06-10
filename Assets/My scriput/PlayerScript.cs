@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -17,12 +16,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float counterCollider;
     [SerializeField] Animator anime;
     [SerializeField] Animator anime2;
-    [SerializeField] float hp = 3f;
     [SerializeField] RocketScript rocketscript;
     [SerializeField] float godTime;
     [SerializeField] float hitTime = 0.5f;
+    [SerializeField] HPUI hpUi;
+    [SerializeField] EnemyScript enemyScript;
+    [SerializeField] BossScript boss;
     CapsuleCollider2D cc;
-    float damage = 1;
+    // float damage = 1;
+   // public float hp = 3f;
+    public bool die = false;
     bool muteki = false;
     bool hit = false;
     public Animator anim;
@@ -40,6 +43,7 @@ public class PlayerScript : MonoBehaviour
         cc = GetComponent<CapsuleCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
         //this.gameObject.SetActive(false);
         // anim.enabled = false;
     }
@@ -48,39 +52,39 @@ public class PlayerScript : MonoBehaviour
         //attackがfalseの時以下が動く
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
-         if(!anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
-         {
-            if(!anim.GetCurrentAnimatorStateInfo(0).IsName("counter") && !anim.GetCurrentAnimatorStateInfo(0).IsName("counterattack"))
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
             {
-                if(!anime.GetCurrentAnimatorStateInfo(0).IsName("Wind") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("counter") && !anim.GetCurrentAnimatorStateInfo(0).IsName("counterattack"))
                 {
-                    float horizontalkey = Input.GetAxisRaw("Horizontal");
-                    //右入力で右向きに動く
-                    if (horizontalkey > 0)
+                    if (!anime.GetCurrentAnimatorStateInfo(0).IsName("Wind") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
                     {
-                        ismovenow = true;
-                        transform.rotation = new Quaternion(0, 0, 0, 0);
-                        rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
-                        anim.SetBool("isRun", true);
+                        float horizontalkey = Input.GetAxisRaw("Horizontal");
+                        //右入力で右向きに動く
+                        if (horizontalkey > 0)
+                        {
+                            ismovenow = true;
+                            transform.rotation = new Quaternion(0, 0, 0, 0);
+                            rb.velocity = new Vector2(horizontalSpeed, rb.velocity.y);
+                            anim.SetBool("isRun", true);
+                        }
+                        //左入力で左向きに動く
+                        else if (horizontalkey < 0)
+                        {
+                            ismovenow = true;
+                            transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
+                            rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
+                            anim.SetBool("isRun", true);
+                        }
+                        //ボタンを離すと止まる
+                        else if (ismovenow)
+                        {
+                            ismovenow = false;
+                            rb.velocity = Vector2.zero;
+                            anim.SetBool("isRun", false);
+                        }
                     }
-                    //左入力で左向きに動く
-                    else if (horizontalkey < 0)
-                    {
-                        ismovenow = true;
-                        transform.rotation = new Quaternion(0, 180f, 0, 0); //左入力で左向きに反転
-                        rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
-                        anim.SetBool("isRun", true);
-                    }
-                    //ボタンを離すと止まる
-                    else if (ismovenow)
-                    {
-                        ismovenow = false;
-                        rb.velocity = Vector2.zero;
-                        anim.SetBool("isRun", false);
-                    }
-                } 
+                }
             }
-         }
         }
     }
     void Update()
@@ -94,17 +98,21 @@ public class PlayerScript : MonoBehaviour
                 anim.SetTrigger("attack");
                 time = 0;//時間リセット
             }
-            if(muteki == true)
+            if (muteki == true)
             {
                 time4 += Time.deltaTime;
                 cc.enabled = false;
-                if(time4 > godTime)
+                if (time4 > godTime)
                 {
                     muteki = false;
                     cc.enabled = true;
                     time4 = 0;
                 }
             }
+        }
+        if (die == true)
+        {
+            SceneManager.LoadScene("result");
         }
         if (hit)
         {
@@ -121,7 +129,7 @@ public class PlayerScript : MonoBehaviour
     }
     void Jump()
     {
-        if(!anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Hurt"))
         {
             bool jumpKey = Input.GetButtonDown("Jump");
             if (jumpKey)
@@ -172,18 +180,49 @@ public class PlayerScript : MonoBehaviour
     {
         if (hit == false)
         {
-            if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "enemy")
+            if (collision.gameObject.tag == "enemy")
             {
                 //Debug.Log("aaaaaa");
                 hit = true;
-                Debug.Log(rocketscript.rocketPower);
                 RocketScript rocket = collision.gameObject.GetComponent<RocketScript>();
                 if (rocket != null)
                 {
-                    hp -= rocket.rocketPower;
+                    HPUI.hp -= rocket.rocketPower;
+                        rb.AddForce(-Vector2.right * 10, ForceMode2D.Impulse);
+                    if (enemyScript.transform.rotation.y > 0 || boss.transform.rotation.y > 0)
+                    {
+                        Debug.Log("vhsdhvuds");
+                        rb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
+                    }
                 }
                 muteki = true;
-                anim.SetTrigger("ishurt");
+                if (HPUI.hp >= 1)
+                {
+                    anim.SetTrigger("ishurt");
+                }
+            }
+            if (collision.gameObject.tag == "Enemy")
+            {
+                //Debug.Log("aaaaaa");
+                hit = true;
+                if (enemyScript != null)
+                {
+                    HPUI.hp -= enemyScript.enemyPower;
+                    rb.AddForce(-Vector2.right * 20, ForceMode2D.Impulse);
+                    if (enemyScript.transform.rotation.y > 0 || boss. transform.rotation.y > 0)
+                    {
+                        rb.AddForce(Vector2.right * 40, ForceMode2D.Impulse);
+                    }
+                }
+                muteki = true;
+                if (HPUI.hp >= 1)
+                {
+                    anim.SetTrigger("ishurt");
+                }
+            }
+            if (HPUI.hp < 1)
+            {
+                anim.SetTrigger("isDie");
             }
         }
     }
@@ -208,5 +247,10 @@ public class PlayerScript : MonoBehaviour
     private void ColiderSet2()
     {
         thunder.enabled = true;
+    }
+    public void IsDie()
+    {
+        Debug.Log("ssssss");
+        die = true;
     }
 }
