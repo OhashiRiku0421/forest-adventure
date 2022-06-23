@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ThunderScript : MonoBehaviour
 {
-    [SerializeField] private EnemyScript enemyscript;
     private PlayerScript playerscript;
     private Animator anim;
     private Animator anime;

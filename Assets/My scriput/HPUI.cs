@@ -5,14 +5,12 @@ using UnityEngine.UI;
 
 public class HPUI : MonoBehaviour
 {
-    [SerializeField] PlayerScript player;
     [SerializeField] GameObject hp1;
     [SerializeField] GameObject hp2;
     [SerializeField] GameObject hp3;
     [SerializeField] GameObject hp4;
     [SerializeField] GameObject hp5;
-    [SerializeField] GameObject boss;
-    public static int hp = 5;
+    public static float hp = 5;
     // Start is called before the first frame update
     void Start()
     {

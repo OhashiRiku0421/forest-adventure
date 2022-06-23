@@ -9,8 +9,11 @@ public class Countercript : MonoBehaviour
     [SerializeField] float emperorTime;
     [SerializeField] CapsuleCollider2D cc;
     [SerializeField] SpriteRenderer sr;
-    bool _canCounter = false;
+    [SerializeField] AudioSource counterAudio;
+    [SerializeField] AudioClip counterCip;
+    public bool _canCounter = false;
     float time = 0f;
+    public bool counterMteki = false;
     void Start()
     {
         counter = true;
@@ -20,6 +23,8 @@ public class Countercript : MonoBehaviour
     {
         if(counter == false)
         {
+            counterAudio.clip = counterCip;
+            counterAudio.Play();
             anime.SetTrigger("iscounterattack");
             counter = true;
         }
@@ -29,6 +34,7 @@ public class Countercript : MonoBehaviour
             cc.enabled = false;
             if(time > emperorTime)
             {
+                counterMteki = false;
                 _canCounter = false;
                 cc.enabled = true;
                 time = 0;
@@ -37,18 +43,11 @@ public class Countercript : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "enemy")
+        if (collision.gameObject.tag == "enemy" || collision.gameObject.tag == "bullet" || collision.gameObject.tag == "slash" || collision.gameObject.tag == "boss")
         {
-            counter = false;
-            _canCounter = true;
-            
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "enemy")
-        {
-            sr.enabled = false;
+            counterMteki = true;
+                counter = false;
+                _canCounter = true;
         }
     }
 }

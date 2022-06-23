@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Cane : MonoBehaviour
 {
-    [SerializeField]  EnemyScript enemyscript;
     public float attackpower = 1;//UŒ‚—Íİ’è
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
     // Update is called once per frame
     void Update()
     {  
+
     }
 }

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47346827}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 2.28, z: -38.200764}
+  m_LocalPosition: {x: -0.09, y: 2.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3605635785273921804}
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyscript: {fileID: 0}
-  magicpower: 3
+  magicpower: 1
 --- !u!50 &326247715
 Rigidbody2D:
   serializedVersion: 4
@@ -290,7 +290,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.008000001, y: 1.16}
+  m_Offset: {x: 0.0035940409, y: 1.0434353}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -301,7 +301,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.31, y: 0.12920618}
+  m_Size: {x: 0.7969445, y: 0.25078773}
   m_EdgeRadius: 0
 --- !u!114 &543966599
 MonoBehaviour:
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anime: {fileID: 3605635785273921807}
-  windPower: 3
+  windPower: 1
 --- !u!50 &1294792834
 Rigidbody2D:
   serializedVersion: 4
@@ -640,9 +640,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anime: {fileID: 3605635785273921807}
   counter: 0
-  emperorTime: 2
+  emperorTime: 3
   cc: {fileID: 826878489}
   sr: {fileID: 0}
+  _canCounter: 0
 --- !u!50 &2097306709
 Rigidbody2D:
   serializedVersion: 4
@@ -1428,7 +1429,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006324053, y: 0.03}
+  m_Offset: {x: -0.0047887564, y: -0.010276079}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1439,7 +1440,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.03554392, y: 0.049526453}
+  m_Size: {x: 0.046777487, y: 0.052597046}
   m_EdgeRadius: 0
 --- !u!70 &826878489
 CapsuleCollider2D:
@@ -1527,18 +1528,18 @@ MonoBehaviour:
   stick: {fileID: 765102121}
   thunder: {fileID: 326247713}
   counter: {fileID: 2097306707}
-  interval: 0.7
-  interval2: 2
-  interval3: 1
+  interval: 1.2
+  interval2: 3
+  interval3: 1.7
   counterCollider: 0.05
   anime: {fileID: 1294792830}
   anime2: {fileID: 0}
-  rocketscript: {fileID: 0}
-  godTime: 1
-  hitTime: 0.5
-  hpUi: {fileID: 0}
+  enemyScript: {fileID: 0}
+  boss: {fileID: 0}
+  bossEnemy: {fileID: 0}
   die: 0
   anim: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!212 &992316613
 SpriteRenderer:
   m_ObjectHideFlags: 0

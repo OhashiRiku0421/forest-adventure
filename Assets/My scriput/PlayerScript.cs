@@ -16,31 +16,23 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float counterCollider;
     [SerializeField] Animator anime;
     [SerializeField] Animator anime2;
-    [SerializeField] RocketScript rocketscript;
-    [SerializeField] float godTime;
-    [SerializeField] float hitTime = 0.5f;
-    [SerializeField] HPUI hpUi;
     [SerializeField] EnemyScript enemyScript;
     [SerializeField] BossScript boss;
-    CapsuleCollider2D cc;
-    // float damage = 1;
-   // public float hp = 3f;
+    [SerializeField] GameObject bossEnemy;
+    [SerializeField] Countercript cs;
     public bool die = false;
-    bool muteki = false;
-    bool hit = false;
     public Animator anim;
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     bool ismovenow = false;
     float timer = 0f;
     float time = 0f;//経過時間
     float time2 = 0f;
     float time3 = 0f;
-    float time4 = 0f;
-    float hitTimer = 0f;
-    // Start is called before the first frame update
+    GameObject playBgm;
+
     void Start()
     {
-        cc = GetComponent<CapsuleCollider2D>();
+        playBgm = GameObject.Find("playBGM");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
@@ -98,30 +90,11 @@ public class PlayerScript : MonoBehaviour
                 anim.SetTrigger("attack");
                 time = 0;//時間リセット
             }
-            if (muteki == true)
-            {
-                time4 += Time.deltaTime;
-                cc.enabled = false;
-                if (time4 > godTime)
-                {
-                    muteki = false;
-                    cc.enabled = true;
-                    time4 = 0;
-                }
-            }
         }
         if (die == true)
         {
+            Destroy(playBgm);
             SceneManager.LoadScene("result");
-        }
-        if (hit)
-        {
-            hitTimer += Time.deltaTime;
-            if (hitTimer >= hitTime)
-            {
-                hitTimer = 0;
-                hit = false;
-            }
         }
         Jump();
         IsLookUp();
@@ -178,52 +151,77 @@ public class PlayerScript : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (hit == false)
+        if(cs.counterMteki == false)
         {
-            if (collision.gameObject.tag == "enemy")
+            if (collision.gameObject.tag == "bullet")
             {
-                //Debug.Log("aaaaaa");
-                hit = true;
-                RocketScript rocket = collision.gameObject.GetComponent<RocketScript>();
-                if (rocket != null)
+                if (cs.counterMteki == false)
                 {
-                    HPUI.hp -= rocket.rocketPower;
-                        rb.AddForce(-Vector2.right * 10, ForceMode2D.Impulse);
-                    if (enemyScript.transform.rotation.y > 0 || boss.transform.rotation.y > 0)
+                    if (gameObject != null)
                     {
-                        Debug.Log("vhsdhvuds");
+                        //Debug.Log("qqq");
+                        HPUI.hp -= enemyScript.enemyPower;
+                        if (enemyScript.canBullrt == true)
+                        {
+                            rb.AddForce(-Vector2.right * 10, ForceMode2D.Impulse);
+                            enemyScript.canBullrt = false;
+                        }
+                        else
+                        {
+                            rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
+                        }
+                        if (HPUI.hp >= 1)
+                        {
+                            anim.SetTrigger("ishurt");
+                        }
+                    }
+                }
+                   
+            }
+            if (collision.gameObject.tag == "slash")
+            {
+                if (cs.counterMteki == false)
+                {
+                    HPUI.hp -= boss.bossPower;
+                    if (bossEnemy.transform.rotation.y == 0)
+                    {
+                        rb.AddForce(-Vector2.right * 10, ForceMode2D.Impulse);
+                    }
+                    else if (bossEnemy.transform.rotation.y >= 1)
+                    {
+                        rb.AddForce(Vector2.right * 10, ForceMode2D.Impulse);
+                    }
+                    if (HPUI.hp >= 1)
+                    {
+                        anim.SetTrigger("ishurt");
+                    }
+                }
+            }
+            if (collision.gameObject.tag == "boss")
+            {
+                if (cs.counterMteki == false)
+                {
+                    HPUI.hp -= boss.bossPower;
+                    if (bossEnemy.transform.rotation.y == 0)
+                    {
+                        rb.AddForce(-Vector2.right * 20, ForceMode2D.Impulse);
+                    }
+                    else if (bossEnemy.transform.rotation.y >= 1)
+                    {
                         rb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
                     }
-                }
-                muteki = true;
-                if (HPUI.hp >= 1)
-                {
-                    anim.SetTrigger("ishurt");
-                }
-            }
-            if (collision.gameObject.tag == "Enemy")
-            {
-                //Debug.Log("aaaaaa");
-                hit = true;
-                if (enemyScript != null)
-                {
-                    HPUI.hp -= enemyScript.enemyPower;
-                    rb.AddForce(-Vector2.right * 20, ForceMode2D.Impulse);
-                    if (enemyScript.transform.rotation.y > 0 || boss. transform.rotation.y > 0)
+                    if (HPUI.hp >= 1)
                     {
-                        rb.AddForce(Vector2.right * 40, ForceMode2D.Impulse);
+                        anim.SetTrigger("ishurt");
                     }
                 }
-                muteki = true;
-                if (HPUI.hp >= 1)
-                {
-                    anim.SetTrigger("ishurt");
-                }
+                    
             }
-            if (HPUI.hp < 1)
-            {
-                anim.SetTrigger("isDie");
-            }
+        }
+        if (HPUI.hp < 1)
+        {
+          // Debug.Log("zzzz");
+         anim.SetTrigger("isDie");
         }
     }
     public void Land()
@@ -250,7 +248,6 @@ public class PlayerScript : MonoBehaviour
     }
     public void IsDie()
     {
-        Debug.Log("ssssss");
         die = true;
     }
 }

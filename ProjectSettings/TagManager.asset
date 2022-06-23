@@ -15,6 +15,11 @@ TagManager:
   - counter
   - playbutton
   - bossAttack
+  - gobu
+  - bullet
+  - slash
+  - enn2
+  - boss
   layers:
   - Default
   - TransparentFX
