@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Camera : MonoBehaviour
 {
-    [SerializeField] EnemyScript enemyscript;
+    [SerializeField] EnemyScript enemyScript;
     [SerializeField] PlayerScript player;
-    [SerializeField] Animator playeranim;
+    [SerializeField] Animator playerAnim;
     [SerializeField] Countercript counter;
     void Start()
     {
@@ -25,16 +25,16 @@ public class Camera : MonoBehaviour
                 {
                     if (gameObject != null)
                     {
-                        HPUI.hp -= enemyscript.enemyPower;
+                        HPUI.hp -= enemyScript.enemyPower;
                         player.rb.AddForce(Vector2.right * 20, ForceMode2D.Impulse);
                         if (HPUI.hp >= 1)
                         {
-                            playeranim.SetTrigger("ishurt");
+                            playerAnim.SetTrigger("ishurt");
                         }
                     }
                     if (HPUI.hp < 1)
                     {
-                        playeranim.SetTrigger("isDie");
+                        playerAnim.SetTrigger("isDie");
                     }
                 }
                 

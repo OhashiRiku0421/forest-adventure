@@ -1583,7 +1583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 367911959}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3082786, y: 3.5514588, z: -10}
+  m_LocalPosition: {x: 4.3401046, y: 3.5514588, z: -10}
   m_LocalScale: {x: 0.7814814, y: 0.69301, z: 1}
   m_Children:
   - {fileID: 1034263556}
@@ -3035,8 +3035,20 @@ PrefabInstance:
       value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+      propertyPath: jumpSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+      propertyPath: checkGround
+      value: 
+      objectReference: {fileID: 1989819596}
+    - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
       propertyPath: enemyScript
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+      propertyPath: counterCollider
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 765102122, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
       propertyPath: attackpower
@@ -6610,7 +6622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1660009458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.3082786, y: 3.5514588, z: -10}
+  m_LocalPosition: {x: 4.3401046, y: 3.5514588, z: -10}
   m_LocalScale: {x: 0.7814814, y: 0.69301, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7663,6 +7675,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1947440228}
   m_CullTransparentMesh: 1
+--- !u!114 &1989819596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 543966599, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+  m_PrefabInstance: {fileID: 876559506}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b539b73cfaaf774282c2af5b4c50fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2073657659
 GameObject:
   m_ObjectHideFlags: 0

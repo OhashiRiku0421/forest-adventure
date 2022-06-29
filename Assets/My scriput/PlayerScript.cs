@@ -6,7 +6,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float horizontalSpeed;
     [SerializeField] int jumpForce;
     [SerializeField] int jumpSpeed;
-    [SerializeField] CheckGround checkground;
+    [SerializeField] CheckGround checkGround;
     [SerializeField] CircleCollider2D stick;
     [SerializeField] BoxCollider2D thunder;
     [SerializeField] BoxCollider2D counter;
@@ -15,7 +15,6 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] float interval3;
     [SerializeField] float counterCollider;
     [SerializeField] Animator anime;
-    [SerializeField] Animator anime2;
     [SerializeField] EnemyScript enemyScript;
     [SerializeField] BossScript boss;
     [SerializeField] GameObject bossEnemy;
@@ -35,7 +34,6 @@ public class PlayerScript : MonoBehaviour
         playBgm = GameObject.Find("playBGM");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
         //this.gameObject.SetActive(false);
         // anim.enabled = false;
     }
@@ -107,7 +105,7 @@ public class PlayerScript : MonoBehaviour
             bool jumpKey = Input.GetButtonDown("Jump");
             if (jumpKey)
             {
-                if (checkground.GetCheckGround())
+                if (checkGround.GetCheckGround())
                 {
                     rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); //ジャンプの計算
                     anim.SetBool("isJump", true);
@@ -214,8 +212,7 @@ public class PlayerScript : MonoBehaviour
                     {
                         anim.SetTrigger("ishurt");
                     }
-                }
-                    
+                }     
             }
         }
         if (HPUI.hp < 1)
@@ -228,7 +225,6 @@ public class PlayerScript : MonoBehaviour
     {
         anim.SetBool("isJump", false);
     }
-
     private void IsAttackFalse()//名前変更
     {
         //アニメーションイベントで呼び出す

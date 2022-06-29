@@ -213,7 +213,6 @@ public class EnemyScript : MonoBehaviour
                         anim.SetTrigger("isDie");
                     }
                 }
-                  
             }
         }
     }
