@@ -41,6 +41,8 @@ public class sceneScript : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         Destroy(titleAudio);
         HPUI.hp = 5;
+        PlayerScript.horizontalSpeed = 10;
+        Cane.attackpower = 1;
         SceneManager.LoadScene("Stage‚P");
     }
     public void ButtonAudio3(int stageNo)

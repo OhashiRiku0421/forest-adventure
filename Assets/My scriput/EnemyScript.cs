@@ -85,7 +85,7 @@ public class EnemyScript : MonoBehaviour
         if (collision.gameObject.tag == "stick")
         {
             Debug.Log("hit1");//hitのログを出す
-            hp -= collision.gameObject.GetComponent<Cane>().attackpower;//Caneから参照
+            hp -= Cane.attackpower;//Caneから参照
             if (sr.flipX == true)
             {
                 rb2d.AddForce(transform.right * 4000);

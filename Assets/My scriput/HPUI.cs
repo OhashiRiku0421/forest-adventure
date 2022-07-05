@@ -19,25 +19,35 @@ public class HPUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(hp <= 5)
+        {
+            hp1.SetActive(true);
+        }
         if (hp <= 4)
         {
-            Destroy(hp1);
+            hp1.SetActive(false);
+            hp2.SetActive(true);
+
         }
         if (hp <= 3)
         {
-            Destroy(hp2);
+            hp2.SetActive(false);
+            hp3.SetActive(true);
+
         }
         if (hp <= 2)
         {
-            Destroy(hp3);
+            hp3.SetActive(false);
+            hp4.SetActive(true);
         }
         if (hp <= 1)
         {
-            Destroy(hp4);
+            hp4.SetActive(false);
+            hp5.SetActive(true);
         }
         if (hp <= 0)
         {
-            Destroy(hp5);
+            hp5.SetActive(false);
         }
     }
 }

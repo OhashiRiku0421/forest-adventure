@@ -154,7 +154,7 @@ public class BossScript : MonoBehaviour
         if (collision.gameObject.tag == "stick")
         {
             Debug.Log("hit1");//hitのログを出す
-            boss.hp -= collision.gameObject.GetComponent<Cane>().attackpower;//Caneから参照
+            boss.hp -= Cane.attackpower;//Caneから参照
             rb2d.AddForce(transform.right * 1000);
             if (boss.hp >= 1)
             {

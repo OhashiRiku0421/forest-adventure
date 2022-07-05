@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] float horizontalSpeed;
+    public static float horizontalSpeed = 10;
     [SerializeField] int jumpForce;
     [SerializeField] int jumpSpeed;
     [SerializeField] CheckGround checkGround;
@@ -36,8 +36,8 @@ public class PlayerScript : MonoBehaviour
         anim = GetComponent<Animator>();
         //this.gameObject.SetActive(false);
         // anim.enabled = false;
-    }
-    void FixedUpdate()
+    }   
+    public void FixedUpdate()
     {
         //attack‚ªfalse‚ÌŽžˆÈ‰º‚ª“®‚­
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
