@@ -2119,7 +2119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633940979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2690878, y: 0.86403847, z: -10}
+  m_LocalPosition: {x: -1.2690668, y: 0.86403847, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4674,7 +4674,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662865883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2690878, y: 0.86403847, z: -10}
+  m_LocalPosition: {x: -1.2690668, y: 0.86403847, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 157831107}
@@ -5348,9 +5348,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.21909666}
+  m_Offset: {x: 1.1300465, y: 0.1778693}
   serializedVersion: 2
-  m_Radius: 4.342711
+  m_Radius: 3.0708885
 --- !u!114 &1870790357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5841,6 +5841,10 @@ PrefabInstance:
       propertyPath: enemyScript
       value: 
       objectReference: {fileID: 397423047}
+    - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+      propertyPath: counterCollider
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 765102122, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
       propertyPath: attackpower
       value: 1

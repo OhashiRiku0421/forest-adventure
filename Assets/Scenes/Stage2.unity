@@ -2576,6 +2576,10 @@ PrefabInstance:
       propertyPath: enemyScript
       value: 
       objectReference: {fileID: 2054615573}
+    - target: {fileID: 504826478, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
+      propertyPath: counterCollider
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 765102122, guid: d6c193b3e18fa6844ac713a4a701491c, type: 3}
       propertyPath: attackpower
       value: 1
@@ -4778,6 +4782,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.105172426}
+  m_Offset: {x: 1.6003512, y: -0.040493745}
   serializedVersion: 2
-  m_Radius: 3.9983504
+  m_Radius: 3.247568
