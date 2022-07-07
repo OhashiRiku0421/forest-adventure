@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemHeal : Itembass
+public class ItemHeal : Itembase
 {
     float _hp = 1;
     public override void Activate()
