@@ -34,7 +34,6 @@ public class PlayerScript : MonoBehaviour
         playBgm = GameObject.Find("playBGM");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        //this.gameObject.SetActive(false);
     }   
     public void FixedUpdate()
     {
