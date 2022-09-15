@@ -35,7 +35,6 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         //this.gameObject.SetActive(false);
-        // anim.enabled = false;
     }   
     public void FixedUpdate()
     {
