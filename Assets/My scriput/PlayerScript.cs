@@ -80,7 +80,7 @@ public class PlayerScript : MonoBehaviour
         time += Time.deltaTime;
         if (time > interval)//マウスを左クリックした時
         {
-            //左クリック入力でattackする。
+            //左クリック入力でattackする
             if (Input.GetButtonDown("Fire1"))
             {
                 anim.SetTrigger("attack");
