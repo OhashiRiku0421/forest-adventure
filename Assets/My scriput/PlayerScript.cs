@@ -84,7 +84,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetButtonDown("Fire1"))
             {
                 anim.SetTrigger("attack");
-                time = 0;//時間リセット。
+                time = 0;//時間リセット
             }
         }
         if (die == true)
