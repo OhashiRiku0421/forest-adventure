@@ -12,7 +12,6 @@ public class Muzzle : MonoBehaviour
         rb.AddForce(-gameObject.transform.right * 16, ForceMode2D.Impulse);
     }
 
-    // Update is called once per frame
     void Update()
     {
         
