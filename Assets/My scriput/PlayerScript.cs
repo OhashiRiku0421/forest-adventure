@@ -63,7 +63,7 @@ public class PlayerScript : MonoBehaviour
                             rb.velocity = new Vector2(-horizontalSpeed, rb.velocity.y);
                             anim.SetBool("isRun", true);
                         }
-                        //ボタンを離すと止まる
+                        //ボタンを離すと止まる。
                         else if (ismovenow)
                         {
                             ismovenow = false;
