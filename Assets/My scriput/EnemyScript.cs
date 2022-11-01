@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]  ThunderScript thunderscript;
     [SerializeField] WindScript windScript;
     [SerializeField] GameObject player;
-    [SerializeField] float enemySpeed;
+    [SerializeField] float enemySpeed = 10;
     // [SerializeField] BoxCollider2D b2;
     // [SerializeField] BoxCollider2D enn2;
     [SerializeField] Animator thunderAnime;
@@ -58,7 +58,8 @@ public class EnemyScript : MonoBehaviour
         if(!enemyAnime.GetCurrentAnimatorStateInfo(0).IsName("spiderhut") && canEnn2)
         {
             Vector2 targeting = (player.transform.position - transform.position).normalized;
-            rb2d.velocity = new Vector2((targeting.x * 2) * enemySpeed, 0);
+            rb2d.velocity = new Vector2((targeting.x * 5), 0);
+            Debug.Log(targeting.x);
             if (targeting.x > 0)
             {
                 sr.flipX = false;
