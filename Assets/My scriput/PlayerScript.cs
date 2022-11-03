@@ -37,7 +37,7 @@ public class PlayerScript : MonoBehaviour
     }   
     public void FixedUpdate()
     {
-        //attack‚ªfalse‚ÌˆÈ‰º‚ª“®‚­
+        //attack‚ªfalse‚ÌˆÈ‰º‚ª“®‚­B
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("LookUp"))
